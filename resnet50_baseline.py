@@ -40,13 +40,8 @@ def add_new_last_layer(base_model, num_classes):
   Returns:
     new keras model with last layer
   """
-#   x = base_model.output 
-#   x = MaxPooling2D(x) # take the output from the final max pooling layer 
-#   x = base_model.output
-#   x = GlobalAveragePooling2D()(x)
-#   x = GlobalMaxPooling2D()(x)
+
   x = base_model.layers[-2].output
-  #   x = Dense(FC_SIZE, activation='relu')(x) # new FC layer, random init
   predictions = Dense(num_classes, activation='softmax')(x) # new softmax layer
   model = Model(input=base_model.input, output=predictions)
   return model
@@ -157,7 +152,6 @@ if __name__=="__main__":
                                     write_images=True)
     
     # callbacks = [checkpoint, lr_reducer, tb]
-    
     callbacks = [lr_reducer, tb]
 
     # Start training (without fine-tuning)
