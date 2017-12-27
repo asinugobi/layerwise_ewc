@@ -10,10 +10,7 @@ import tensorflow as tf
 from sklearn.metrics import log_loss
 
 from load_cifar10 import load_cifar10_data
-<<<<<<< HEAD
 from scipy.io import savemat
-=======
->>>>>>> bfc68f697d478af0bbdcaeca0645a90afb0e45b7
 
 def identity_block(input_tensor, kernel_size, filters, stage, block):
     """
@@ -225,11 +222,7 @@ if __name__ == '__main__':
     channel = 3
     num_classes = 10 
     batch_size = 16 
-<<<<<<< HEAD
     nb_epoch = 5000
-=======
-    nb_epoch = 10
->>>>>>> bfc68f697d478af0bbdcaeca0645a90afb0e45b7
 
     # Load Cifar10 data. Please implement your own load_data() module for your own dataset
     X_train, Y_train, X_valid, Y_valid = load_cifar10_data(img_rows, img_cols)
@@ -287,22 +280,13 @@ if __name__ == '__main__':
 
         sess.run(tf.global_variables_initializer())
         print("Global variables initialized.")
-<<<<<<< HEAD
-
         train_accuracy_history, test_accuracy_history = [], []
-=======
->>>>>>> bfc68f697d478af0bbdcaeca0645a90afb0e45b7
         
         for epoch in range(nb_epoch): 
             print('epoch %d: ' % (epoch))
 
-<<<<<<< HEAD
             for i in range(num_batches):
                 #for i in range(5):  
-=======
-            # for i in range(num_batches):
-            for i in range(5):  
->>>>>>> bfc68f697d478af0bbdcaeca0645a90afb0e45b7
                 # Grab batch of training data 
                 batch_indices = np.random.randint(num_samples, size=batch_size)
                 batch_x = X_train[batch_indices]
@@ -321,27 +305,18 @@ if __name__ == '__main__':
             
 
             # Compute the training accuracy 
-<<<<<<< HEAD
             total_train_accuracy = 0.0 
             for batch_idx in range(num_batches):
                 if batch_idx == num_batches - 1:
                     batch_x = X_train[batch_idx*batch_size:num_samples, :, :, :]
                     batch_y = Y_train[batch_idx*batch_size:num_samples]
-=======
-            total_train_accuracy = 0 
-            for batch_idx in range(num_batches):
-                if batch_idx == num_batches - 1:
-                    batch_x = X_train[batch_idx*batch_size : , :, :, :]
-                    batch_y = Y_train[batch_idx*batch_size : ]
->>>>>>> bfc68f697d478af0bbdcaeca0645a90afb0e45b7
-                else:
+               else:
                     batch_x = X_train[batch_idx*batch_size : (batch_idx+1)* batch_size, :, :, :]
                     batch_y = Y_train[batch_idx*batch_size : (batch_idx+1)* batch_size]
 
                 train_accuracy = sess.run(accuracy, feed_dict={x: batch_x, y_: batch_y})
                 total_train_accuracy = total_train_accuracy + train_accuracy
             
-<<<<<<< HEAD
             final_train_accuracy  = total_train_accuracy / (float(num_samples))
             print("Train Accuracy: %f" % (final_train_accuracy))
             train_accuracy_history.append(final_train_accuracy)
@@ -356,26 +331,9 @@ if __name__ == '__main__':
                 else:
                     batch_x = X_valid[batch_idx*batch_size : (batch_idx+1)* batch_size, :, :, :]
                     batch_y = Y_valid[batch_idx*batch_size : (batch_idx+1)* batch_size]
-=======
-            final_train_accuracy  = total_train_accuracy / num_samples
-            print("Train Accuracy: %d" % (final_train_accuracy))
-
-            # Compute the testing accuracy 
-            total_test_accuracy = 0 
-
-            for batch_idx in range(num_batches_test):
-                if batch_idx == num_batches_test - 1:
-                    batch_x = X_train[batch_idx*batch_size : , :, :, :]
-                    batch_y = Y_train[batch_idx*batch_size : ]
-                else:
-                    batch_x = X_train[batch_idx*batch_size : (batch_idx+1)* batch_size, :, :, :]
-                    batch_y = Y_train[batch_idx*batch_size : (batch_idx+1)* batch_size]
->>>>>>> bfc68f697d478af0bbdcaeca0645a90afb0e45b7
-
                 test_accuracy = sess.run(accuracy, feed_dict={x: batch_x, y_: batch_y})
                 total_test_accuracy = total_test_accuracy + test_accuracy
             
-<<<<<<< HEAD
             final_test_accuracy  = total_test_accuracy / (float(num_test_samples))
             print("Test Accuracy: %f" % (final_test_accuracy))
             test_accuracy_history.append(final_test_accuracy)
@@ -384,11 +342,6 @@ if __name__ == '__main__':
             save_to_mat['training_accuracies'] = train_accuracy_history
             save_to_mat['test_accuracies'] = test_accuracy_history
             savemat("./summary_results.mat", {'training_summary':save_to_mat})
-=======
-            final_test_accuracy  = total_test_accuracy / num_test_samples 
-            print("Test Accuracy: %d" % (final_test_accuracy))
->>>>>>> bfc68f697d478af0bbdcaeca0645a90afb0e45b7
-
     # Start transfer learning. 
     # model.fit(X_train, Y_train,
     #           batch_size=batch_size,
