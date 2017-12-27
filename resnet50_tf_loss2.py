@@ -259,7 +259,17 @@ if __name__ == '__main__':
     print("Loss defined.")
 
     # Define optimizer 
-    update = tf.train.GradientDescentOptimizer(0.01).minimize(loss)
+    # update = tf.train.GradientDescentOptimizer(0.01).minimize(loss)
+    optimizer = tf.train.RMSPropOptimizer(learning_rate=0.01,
+        decay=0.9, 
+        momentum=0.0, 
+        epsilon=1e-10, 
+        use_locking=False, 
+        centered=False, 
+        name='RMSProp')
+    fisher_multiplier = 0
+    penalty = 0 
+    update = optimizer.minimize(loss + (fisher_multiplier/2) * penalty)
     print("Optimizer defined.")
 
     # Define accuracy 
@@ -310,7 +320,7 @@ if __name__ == '__main__':
                 if batch_idx == num_batches - 1:
                     batch_x = X_train[batch_idx*batch_size:num_samples, :, :, :]
                     batch_y = Y_train[batch_idx*batch_size:num_samples]
-               else:
+                else:
                     batch_x = X_train[batch_idx*batch_size : (batch_idx+1)* batch_size, :, :, :]
                     batch_y = Y_train[batch_idx*batch_size : (batch_idx+1)* batch_size]
 
